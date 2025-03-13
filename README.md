@@ -1,10 +1,7 @@
 # what-should-i-wear
 
 <h1>A project that will eliminate the overthinking and uncertainty in figuring out what I should wear everyday.</h1>
-  
-<p>I built a web app with Flask and React that creates personalized outfit recommendations based on activity and weather.
-Engineered backend to fetch weather data, categorize it, and combine it with activity to create feature vectors.
-Processed Pinterest data and applied KNN machine learning algorithm for similarity scores, and displayed recommendations on a React frontend.
-</p>
 
-<p>Hosted on AWS.</p>
+<p>The user inputs an activity and their location, and using the OpenWeather API and pre-trained CNN models, outputs a sample outfit for me to wear</p>
+
+<p>It's built on a Flask backend and displayed with a React frontend. It'll be hosted on AWS S3.</p>
