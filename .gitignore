@@ -2,3 +2,7 @@ requirements.txt
 venv/
 .gitattributes
 backend/shoes_dataset/
+clothes_dataset/
+backend/modanet/images/
+backend/modanet/
+maskrcnn-modanet/

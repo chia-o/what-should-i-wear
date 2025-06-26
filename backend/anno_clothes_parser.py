@@ -39,21 +39,23 @@ for line in lines[2:]:
 
 
 modanet_image_dir = "/Users/chiamakaofonagoro/projects/what-should-i-wear/backend/modanet/images"
-modanet_anno_file = "/Users/chiamakaofonagoro/projects/what-should-i-wear/backend/modanet/annotations/modanet2018_instances_train.json"
+modanet_anno_file = "/Users/chiamakaofonagoro/projects/what-should-i-wear/backend/modanet/modanet2018_instances_train.json"
 output_dir = "clothes_dataset"
 
 with open(modanet_anno_file, 'r') as f:
-    coco = json.load(f)
+    open_file = json.load(f)
 
-categories = {cat['id']: cat['name'] for cat in coco['categories']}
+# load categories and ids
+categories = {cat['id']: cat['name'] for cat in open_file['categories']}
 
-images = {img['id']: img['file_name'] for img in coco['images']}
+images = {img['id']: img['file_name'] for img in open_file['images']}
 
 image_to_category = {}
 
-for ann in coco['annotations']:
-    img_id = ann['image_id']
-    cat_id = ann['category_id']
+# populate categories, ids in image_to_category dict
+for annotation in open_file['annotations']:
+    img_id = annotation['image_id']
+    cat_id = annotation['category_id']
 
     img_name = images[img_id]
     cat_name = categories[cat_id]
@@ -68,15 +70,13 @@ for ann in coco['annotations']:
 
 
 
-
+# create category folders in clothes_dataset
 for cat_name in set(image_to_category.values()):    
     cat_folder = os.path.join(output_dir, cat_name)
-    os.makedirs(cat_folder, exist_ok=True)
-    
-    print(f"Created folder: {cat_folder}")
+    os.makedirs(cat_folder, exist_ok=True) # if category doesnt exist
 
 
-# Copy images into their respective category folders
+# copy images into category folders
 for img_name, cat_name in image_to_category.items():
     src_path = os.path.join(modanet_image_dir, img_name)
     dst_path = os.path.join(output_dir, cat_name, img_name)
@@ -86,4 +86,4 @@ for img_name, cat_name in image_to_category.items():
     else:
         print(f"Image not found: {src_path}")
 
-print("Dataset organized by category successfully!")
+print("Images organized by category successfully")
